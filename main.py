@@ -6,9 +6,9 @@ from agent import RandomAgent, DQNAgent
 from env import TreeGridWorld
 from visualize import render_log,plot_log
 import numpy as np
-import cv2
+
 import matplotlib.pyplot as plt
-import torch
+
 
 # Initialize the environment and the agent
 env = TreeGridWorld()

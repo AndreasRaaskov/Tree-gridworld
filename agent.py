@@ -137,7 +137,7 @@ class DQNAgent:
             #Train model
             predicted = self.model(state)[action]
             self.optimizer.zero_grad()
-            loss = nn.MSELoss()(predicted,  target)
+            loss = nn.MSELoss()(predicted.cpu(),  target)
             loss.backward()
             self.optimizer.step()
 
