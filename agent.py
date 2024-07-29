@@ -6,6 +6,7 @@ import torch.optim as optim
 import json
 from collections import deque
 from gym import spaces
+import torch.nn.functional as F
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -88,14 +89,20 @@ class QNetwork(nn.Module):
             nn.Conv2d(16, 16, kernel_size=3, stride=1),
             nn.ReLU(),
         )
-        self.fc = nn.Linear(1024, action_size)
+        self.fc1 = nn.Linear(1024, 1024)
+        self.fc2 = nn.Linear(1024, 1024)
+        self.fc_final = nn.Linear(1024, action_size)
 
     def forward(self, x):
-        x = torch.from_numpy(x).float().to(device) #convert to tensor and send to device
+        if not isinstance(x, torch.Tensor):
+            x = torch.from_numpy(x).float()
+        x = x.to(device)  # Make sure 'device' is defined
         
         x = self.conv(x)
-        x = x.view(-1)
-        x = self.fc(x)
+        x = x.view(-1)  # Flatten the tensor
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc_final(x)
         return x
 
 
@@ -135,9 +142,10 @@ class DQNAgent:
                 target = reward + Q_future * self.gamma
             
             #Train model
+            state = torch.from_numpy(state).float().to(device)
             predicted = self.model(state)[action]
             self.optimizer.zero_grad()
-            loss = nn.MSELoss()(predicted.cpu(),  target)
+            loss = nn.MSELoss()(predicted,  target)
             loss.backward()
             self.optimizer.step()
 
