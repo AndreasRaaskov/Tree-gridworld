@@ -84,14 +84,14 @@ class QNetwork(nn.Module):
     def __init__(self, state_size, action_size):
         super(QNetwork, self).__init__()
         self.conv = nn.Sequential(
-            nn.Conv2d(state_size, 16, kernel_size=3, stride=1),
+            nn.Conv2d(state_size, 8, kernel_size=11, stride=1,padding=5), # Take a look at the entire grid
             nn.ReLU(),
-            nn.Conv2d(16, 16, kernel_size=3, stride=1),
+            nn.Conv2d(8, 8, kernel_size=11, stride=1,padding=1), # Makes 10X10 grid into 4X4
             nn.ReLU(),
         )
-        self.fc1 = nn.Linear(1024, 1024)
-        self.fc2 = nn.Linear(1024, 1024)
-        self.fc_final = nn.Linear(1024, action_size)
+        self.fc1 = nn.Linear(128, 64)
+        self.fc2 = nn.Linear(64, 64)
+        self.fc = nn.Linear(64, action_size)
 
     def forward(self, x):
         if not isinstance(x, torch.Tensor):
@@ -102,7 +102,7 @@ class QNetwork(nn.Module):
         x = x.view(-1)  # Flatten the tensor
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = self.fc_final(x)
+        x = self.fc(x)
         return x
 
 
@@ -153,7 +153,7 @@ class DQNAgent:
             self.epsilon *= self.epsilon_decay
 
     def load(self, name):
-        self.model.load_state_dict(torch.load(name))
+        self.model.load_state_dict(torch.load(name,map_location=torch.device('cpu')))
 
     def save(self, name):
         #save memory

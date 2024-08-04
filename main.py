@@ -17,7 +17,7 @@ agent = DQNAgent()
 
 # Run the agent on the environment
 num_episodes = 2*10**9
-num_steps_per_episode = 200
+num_steps_per_episode = 400
 log={'episode':[],'reward':[],'trees':[],'checkpoint':[]} #log for plotting
 temp_log={'episode':[],'reward':[],'trees':[],'checkpoint':[]} 
 for episode in range(num_episodes):
