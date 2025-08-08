@@ -1,3 +1,17 @@
+"""
+TreeGridWorld Environment - A reinforcement learning environment for tree collection.
+
+This environment implements a 12x12 grid world where an agent moves around collecting trees.
+Trees respawn dynamically based on how many are currently in the environment. The agent 
+receives rewards for collecting trees and the episode continues indefinitely.
+
+Features:
+- Agent can move in 4 directions or stay still (5 actions total)
+- Trees respawn with probability based on current tree count
+- Real-time visualization with OpenCV and matplotlib
+- Configurable tree respawn rates and initial tree count
+"""
+
 import gym
 from gym import spaces
 import numpy as np

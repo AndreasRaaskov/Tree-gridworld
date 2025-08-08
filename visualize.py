@@ -1,3 +1,15 @@
+"""
+Visualization Utilities - Helper functions for plotting and rendering training progress.
+
+This module provides functions to visualize training logs and render performance plots.
+It includes both matplotlib-based plotting and OpenCV-based real-time display capabilities
+for monitoring agent performance during training.
+
+Functions:
+- plot_log(): Creates matplotlib figures showing reward and tree count over episodes
+- render_log(): Converts matplotlib figures to OpenCV windows for real-time display
+"""
+
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np

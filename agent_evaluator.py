@@ -1,3 +1,16 @@
+"""
+Agent Evaluator - Test and evaluate different agents in the TreeGridWorld environment.
+
+This script runs agents in the TreeGridWorld environment to evaluate their performance.
+It can test different agent types and visualize their behavior in real-time using OpenCV 
+rendering. Performance metrics are logged including rewards and trees collected per episode.
+
+To change the agent type:
+- Line 10: Replace greedyAgent() with RandomAgent() or DQNAgent()  
+- For DQNAgent: Uncomment line 11 and specify checkpoint path to load trained model
+- Line 9: Adjust TreeGridWorld parameters (rmax, num_trees) as needed
+"""
+
 from agent import RandomAgent, DQNAgent, greedyAgent
 from env import TreeGridWorld
 from visualize import render_log,plot_log

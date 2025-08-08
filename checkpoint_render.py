@@ -1,9 +1,21 @@
 
+"""
+Checkpoint Renderer - Visualizes saved agent states from training checkpoints.
+
+This script loads previously saved state sequences from training checkpoints and renders
+them as an OpenCV window to observe the agent's behavior. It displays the TreeGridWorld
+environment with the agent (red) and trees (green) on a 12x12 grid.
+
+Usage:
+    - Modify path_name variable to select different checkpoints
+    - Run script to see the last 200 states from the selected checkpoint
+"""
+
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-path_name="checkpoints/c_24000"
+path_name="checkpoints/c_150000"
 
 def render_state(grid):
     # Create a 2D array to display the grid. 
