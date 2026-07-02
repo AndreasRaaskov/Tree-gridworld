@@ -18,7 +18,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-checkpoint_step=10000  # Save every 10,000 steps
+checkpoint_step=10**6  # Save every 10,000,000 steps
 
 def plot_log(log):
     fig, ax1 = plt.subplots(figsize=(10, 5))
